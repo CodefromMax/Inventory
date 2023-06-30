@@ -1,0 +1,23 @@
+#main_title{
+    text-align: center;
+    background-color: #0c5fa8;
+    color: #fff;
+    padding: 20px;
+    letter-spacing: 2px;
+    font-weight: 500;
+}
+
+/* doesn't work */
+.addb h2{
+    float: left;
+    
+}
+.addb button{
+    float: right;
+}
+
+
+
+/* .container{
+    margin-top: 50px;
+} */
