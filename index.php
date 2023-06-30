@@ -4,7 +4,20 @@
     <div class="addb">
     <h2> Shelf A </h2>
     <button class = "btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Item</button>
+    <!-- display query result -->
+    <?php if(isset($_GET['message'])){    
+            echo "<h5>".$_GET['message']."</h5>";
+        }
+        ?>
+    
+    <?php if(isset($_GET['error'])){    
+            echo "<h4>".$_GET['error']."</h4>";
+        }
+        ?>
+    
     </div>
+    <!-- <br style="line-height:10px;"> -->
+    <h5></h5>
         <table class = "table table-hover table-bordered table-striped">   
             <thead>
                 <tr> 
@@ -14,6 +27,8 @@
                     <th>location</th>
                     <th>division</th>
                     <th>code</th>
+                    <th>Update</th>
+                    <th>Delete</th>
                 
 
                 </tr> 
@@ -45,6 +60,9 @@
                             <td> <?php echo $row['lcoation'] ?> </td>
                             <td> <?php echo $row['division'] ?> </td>
                             <td> <?php echo $row['code'] ?> </td>
+                            <td> <a href="Update"></a>
+                            <td> <a href="Delete"></a>
+
                         </tr>
                     
                         <?php
@@ -61,6 +79,7 @@
 
         </table>
 
+
         <!-- addbutton  add data-bs- version solution: https://stackoverflow.com/a/56461232/22155977-->
         <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
 <form action="insert_data.php" method = "post">
@@ -68,7 +87,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add item</h5>
+        <h3 class="modal-title" id="exampleModalLabel">Add item</h3>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

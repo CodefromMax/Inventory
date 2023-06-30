@@ -8,16 +8,27 @@
 }
 
 /* doesn't work */
-.addb h2{
+/* .addb h2{
     float: left;
     
 }
 .addb button{
-    float: right;
+    
+    float: left;
+} */
+
+
+
+.container{
+    margin-top: 50px;
 }
 
+.addb h5{
+    color:green;
+    text-align: left;
+}
 
-
-/* .container{
-    margin-top: 50px;
-} */
+.addb h4{
+    color:red;
+    text-align: left;
+}

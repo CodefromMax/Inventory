@@ -12,7 +12,13 @@ if(!$connection) {
 }
 
 else {
-    // $query = "select * from 'inventory'";
+
+    // $query = "INSERT INTO `inventory`(`id`, `name`, `quantity`, `location`) 
+    // VALUES (1, 2, 20, 1)";
+    
+    // $result = mysqli_query($connection, $query);
+
+    // $query = "select * from `inventory`";
     //             //hold the database
     //             $result = mysqli_query($connection,$query);
     //             print_r($result);
