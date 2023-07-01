@@ -15,6 +15,14 @@
         }
         ?>
     
+    <?php if(isset($_GET['delete_message'])){    
+            echo "<h5>".$_GET['delete_message']."</h5>";
+        }
+        ?>
+    <?php if(isset($_GET['update_message'])){    
+            echo "<h5>".$_GET['update_message']."</h5>";
+        }
+        ?>
     </div>
     <!-- <br style="line-height:10px;"> -->
     <h5></h5>
@@ -57,11 +65,11 @@
                             <td> <?php echo $row['id'] ?> </td>
                             <td> <?php echo $row['name'] ?> </td>
                             <td> <?php echo $row['quantity'] ?> </td>
-                            <td> <?php echo $row['lcoation'] ?> </td>
+                            <td> <?php echo $row['location'] ?> </td>
                             <td> <?php echo $row['division'] ?> </td>
                             <td> <?php echo $row['code'] ?> </td>
-                            <td> <a href="Update"></a>
-                            <td> <a href="Delete"></a>
+                            <td> <a href="update_item.php?id=<?php echo $row['id'] ?>" class = "btn btn-success">Update</a>
+                            <td> <a href="delete_item.php?id=<?php echo $row['id'] ?>&name= <?php echo $row['name'] ?>" class = "btn btn-danger">Delete</a>
 
                         </tr>
                     
@@ -99,7 +107,7 @@
                 <label for="item_name">2. Name:</label><br>
                 <input type="text" name = "item_name" class = "form-control" required>
                 <br><label for="item_quantity">3. Quantity:</label>
-                <input type="number" name = "item_quantity" class = "form-control" required>
+                <input type="number" name = "item_quantity" class = "form-control" placeholder="1",required>
                 <br><label for="item_location">4. Level:</label><br>
                 <input type="radio" name="item_location" value="1" required>1<br>
                 <input type="radio" name="item_location" value="2">2<br>
