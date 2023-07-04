@@ -25,11 +25,11 @@
             <thead>
                 <tr> 
                     <th>Id</th>
-                    <th>name</th>
-                    <th>quantity</th>
-                    <th>location</th>
-                    <th>division</th>
-                    <th>code</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Shelf</th>
+                    <th>Level</th>
+                    <th>Division</th>
                     <th>Update</th>
                     <th>Delete</th>
                 
