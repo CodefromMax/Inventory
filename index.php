@@ -107,7 +107,7 @@
                 <label for="item_name">2. Name:</label><br>
                 <input type="text" name = "item_name" class = "form-control" required>
                 <br><label for="item_quantity">3. Quantity:</label>
-                <input type="number" name = "item_quantity" class = "form-control" placeholder="1",required>
+                <input type="number" name = "item_quantity" class = "form-control" value="1" required>
                 <br><label for="item_location">4. Level:</label><br>
                 <input type="radio" name="item_location" value="1" required>1<br>
                 <input type="radio" name="item_location" value="2">2<br>
