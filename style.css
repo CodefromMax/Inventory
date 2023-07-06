@@ -7,28 +7,100 @@
     font-weight: 500;
 }
 
-/* doesn't work */
-/* .addb h2{
-    float: left;
-    
+a{
+    color: #fff;
 }
-.addb button{
-    
-    float: left;
+
+/* #radio_shelf{
+  margin-right:2px;
 } */
 
+.form-control {
+    height: 50px;
+    border-radius: 0;
+}
 
+#searchbar{
+    margin-bottom:2px;
+} 
+
+/* Navigation bar style */
+#dynamic_island {
+  overflow: hidden;
+  background-color: #63686e ;
+  /* width: 100%; */
+}
+
+#dynamic_island a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 30px;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+#dynamic_island h5 {
+  float: left;
+  display: block;
+  color:green;
+  text-align: left;
+  padding: 10px 10px;
+  font-size: 25px;
+  font-weight: 500;
+  background-color: #fff;
+  width: 100%;
+}
+#dynamic_island button {
+  float: left;
+  border: 3px solid black;
+  text-align: left;
+  padding: 10px 10px;
+  text-decoration: underline; 
+  font-size: 25px;
+  font-weight: 500;
+  width: 100%;
+  border-radius: 0;
+}
+#dynamic_island h4 {
+  float: left;
+  display: block;
+  color:red;
+  text-align: left;
+  font-size: 25px;
+  font-weight: 500;
+  background-color: #fff;
+  width: 100%;
+}
+
+#dynamic_island a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+#dynamic_island a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+html {
+    scroll-behavior: smooth;   
+    scroll-padding-top: 400px;
+}
+
+.sticky {
+    
+  position: fixed;
+  top: 0%;
+  /* overflow: hidden; */
+  width: 100%; 
+}
 
 .container{
     margin-top: 50px;
+
 }
 
-.addb h5{
-    color:green;
-    text-align: left;
-}
 
-.addb h4{
-    color:red;
-    text-align: left;
-}

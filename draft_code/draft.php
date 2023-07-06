@@ -169,13 +169,19 @@ echo "</tbody>";
         
     }    
         ?>
-    
-    
-        
-
-        <!-- addbutton  add data-bs- version solution: https://stackoverflow.com/a/56461232/22155977-->
-        <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
 
 
 <?php include("footer.php");?>
 
+<!-- select shelf for Update -->
+                <!-- <input type="text" name = "item_shelf" class = "form-control" value= <?php echo $shelf ?> >
+                <select name="item_shelf" id="item_shelf">
+                    <option value="A" <?php if ($row['shelf'] == 'A') echo 'selected'; ?>>A</option>
+                    <option value="B" <?php if ($row['shelf'] == 'B') echo 'selected'; ?>>B</option>
+                    <option value="C" <?php if ($row['shelf'] == 'C') echo 'selected'; ?>>C</option>
+                    <option value="D" <?php if ($row['shelf'] == 'D') echo 'selected'; ?>>D</option>
+                    <option value="E" <?php if ($row['shelf'] == 'E') echo 'selected'; ?>>E</option>
+                    <option value="F" <?php if ($row['shelf'] == 'F') echo 'selected'; ?>>F</option>
+                    <option value="G" <?php if ($row['shelf'] == 'G') echo 'selected'; ?>>G</option>
+                </select>
+         -->

@@ -1,26 +1,24 @@
-<?php include('dbcon.php'); ?>
+<?php include('dbcon.php');
 
-<?php ini_set('display_errors', 1); error_reporting(-1);?>
-
-
-<?php 
-
-    if (isset($_GET['id'])){
-
-        $id = $_GET['id'];
-        $name = $_GET['name'];
-        $query = "DELETE FROM `inventory` where  `id` = '$id'";
-    }
+ini_set('display_errors', 1); error_reporting(-1);
 
 
-    $result = mysqli_query($connection,$query);
+if (isset($_GET['id'])){
 
-    if (!$result){
-        die("query failed");
-    }
+    $id = $_GET['id'];
+    $name = $_GET['name'];
+    $query = "DELETE FROM `inventory` where  `id` = '$id'";
+}
 
-    else{
-        header("location:index.php?delete_message=Deleted ($id , $name) ");
-    }
+
+$result = mysqli_query($connection,$query);
+$date = date('m/d/Y h:i:s a', time());
+if (!$result){
+    die("query failed");
+}
+
+else{
+    header("location:index.php?delete_message= Deleted ($id , $name,)($date)");
+}
 
     

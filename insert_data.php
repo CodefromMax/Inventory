@@ -3,12 +3,14 @@ ini_set('display_errors', 1); error_reporting(-1);
 include("dbcon.php");
 
 if(isset($_POST['add_item'])){
+    echo $_POST['add_item'];
     $id = $_POST['item_id'];
     $name = $_POST['item_name'];
     $quantity = $_POST['item_quantity'];
+    $shelf = $_POST['item_shelf'];
     $location = $_POST['item_location'];
 
-    $query = "INSERT INTO `inventory`(`id`, `name`, `quantity`, `location`) VALUES ('$id', '$name', $quantity, $location)";
+    $query = "INSERT INTO `inventory`(`id`, `name`, `quantity`, `shelf`, `location`) VALUES ('$id', '$name', $quantity, '$shelf', $location)";
     try{
         $result = mysqli_query($connection, $query);
     } catch (Throwable $exception) { //Use Throwable to catch both errors and exceptions
@@ -24,7 +26,8 @@ if(isset($_POST['add_item'])){
         die("Failed to insert data.");
     }
     else {
-        header("location:index.php?message=Added item: ($id , $name)  .");
+        $date = date('Y-m-d h:i', time());
+        header("location:index.php?add_message=Added: ($id , $name) ($date).");
 
     }
 
@@ -33,5 +36,3 @@ if(isset($_POST['add_item'])){
 
 }
 
-
-?>
