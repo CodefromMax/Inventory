@@ -8,13 +8,14 @@
             <tr> 
                 <th>Update</th>
                 <th>Delete</th>
-                <th>Id</th>
+                <th>Part Number</th>
+                <th>Serial Number</th>
                 <th>Name</th>
                 <th>Quantity</th>
-                <th>Shelf</th>
-                <th>Level</th>
-                <th>Division</th>
-                
+                <th>Shelf-Level-Zone-Depth</th>
+                <th>Created On</th>
+                <th>Last Edited On</th>
+                <th>Note</th>
             </tr> 
         </thead>
     <tbody>

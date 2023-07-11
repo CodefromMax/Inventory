@@ -87,7 +87,7 @@
                 // Search bar used: filter based on query
                 else{
                     $val = $_GET['search'];
-                    $query = "SELECT * FROM inventory WHERE CONCAT(`id`,`name`) LIKE '$val%' AND `shelf` = '$shelf' ";
+                    $query = "SELECT * FROM inventory WHERE CONCAT(`part_number`,`serial_number`,`name`) LIKE '$val%' AND `shelf` = '$shelf' ";
                 }
 
                 // hold the database
@@ -107,14 +107,16 @@
                             ?>
                             <!-- Note: Putting the two actions first can reduce scrolling for mobile users. -->
                             <tr>
-                                <td><a href="update_item.php?id=<?php echo $row['id'] ?>" class = "btn btn-success">Update</a>
-                                <td><a href="delete_item.php?id=<?php echo $row['id'] ?>&name= <?php echo $row['name'] ?>" class = "btn btn-danger">Delete</a>
-                                <td><?php echo $row['id'] ?></td>
+                                <td><a href="update_item.php?serial_number=<?php echo $row['serial_number'] ?>" class = "btn btn-success">Update</a>
+                                <td><a href="delete_item.php?id=<?php echo $row['serial_number'] ?>&name= <?php echo $row['name'] ?>" class = "btn btn-danger">Delete</a>
+                                <td><?php echo $row['part_number'] ?></td>
+                                <td><?php echo $row['serial_number'] ?></td>
                                 <td><?php echo $row['name'] ?></td>
                                 <td><?php echo $row['quantity'] ?></td>
-                                <td><?php echo $row['shelf'] ?></td>
-                                <td><?php echo $row['location'] ?></td>
-                                <td><?php echo $row['division'] ?></td>       
+                                <td><?php echo $row['shelf']."-".$row['level']."-".$row['zone']."-".$row['depth']?></td>
+                                <td><?php echo $row['creation_time'] ?></td> 
+                                <td><?php echo $row['last_edited'] ?></td> 
+                                <td><?php echo $row['note'] ?></td>   
                             </tr> 
                             <?php
                             
