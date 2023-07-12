@@ -1,6 +1,7 @@
 <?php 
 ini_set('display_errors', 1); error_reporting(-1);
 include("dbcon.php");
+date_default_timezone_set('America/Toronto');
 
 if(isset($_POST['add_item'])){
     // echo $_POST['add_item'];
@@ -13,8 +14,8 @@ if(isset($_POST['add_item'])){
     $zone = $_POST['item_zone'];
     $depth = $_POST['item_depth'];
     $note = $_POST['item_note'];
-    $creation_time = date('Y-m-d h:i', time());
-    $last_edited = date('Y-m-d h:i', time());
+    $creation_time = date('Y-m-d h:i a', time());
+    $last_edited = date('Y-m-d h:i a', time());
     $query = "INSERT INTO `inventory`(`part_number`, `serial_number`, `name`, `quantity`, `shelf`, `level`, `zone`, `depth`, `creation_time`, `last_edited`, `note`) VALUES ('$part_number', '$serial_number', '$name', $quantity, '$shelf', '$level', '$zone' ,'$depth','$creation_time','$last_edited','$note')";
     try{
         $result = mysqli_query($connection, $query);

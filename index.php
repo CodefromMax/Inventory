@@ -1,6 +1,7 @@
 <?php include('header.php'); ?>
 <?php include('dbcon.php'); ?>
 <? declare(strict_types=1); ?>
+<?php date_default_timezone_set('America/Toronto'); ?>
 
 
 <!-- Search bar -->

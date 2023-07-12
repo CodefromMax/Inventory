@@ -2,12 +2,12 @@
 
 ini_set('display_errors', 1); error_reporting(-1);
 
+date_default_timezone_set('America/Toronto');
+if (isset($_GET['serial_number'])){
 
-if (isset($_GET['id'])){
-
-    $id = $_GET['id'];
+    $serial_number = $_GET['serial_number'];
     $name = $_GET['name'];
-    $query = "DELETE FROM `inventory` where  `id` = '$id'";
+    $query = "DELETE FROM `inventory` where  `serial_number` = '$serial_number'";
 }
 
 
@@ -18,7 +18,7 @@ if (!$result){
 }
 
 else{
-    header("location:index.php?delete_message= Deleted ($id , $name,)($date)");
+    header("location:index.php?delete_message= Deleted ($serial_number , $name,)($date)");
 }
 
     

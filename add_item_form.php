@@ -20,13 +20,13 @@
             <br>
             <label for="item_name">3. Name:</label><br>
             <!-- <input type="text" name = "item_name" class = "form-control" required> -->
-            <input list="brow" >
+            <input type="text" name = "item_name" list="brow" >
             <datalist id="brow" name = "item_name" required>
-              <option value="Quick Panel">
-              <option value="R">
-              <option value="Chrome">
-              <option value="Opera">
-              <option value="Safari">
+              <option name = "item_name" value="Panel">
+              <option name = "item_name" value="R">
+              <option name = "item_name" value="Chrome">
+              <option name = "item_name" value="Opera">
+              <option name = "item_name" value="Safari">
             </datalist>  
           
             <br><br>
