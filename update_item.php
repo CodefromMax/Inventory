@@ -40,7 +40,7 @@
     $depth = $_POST['item_depth'];
     $last_edited = date('Y-m-d h:i a', time());
     $note = $_POST['item_note'];
-    // UPDATE `inventory` SET `name`='[value-3]',`quantity`='[value-4]',`shelf`='[value-5]',`level`='[value-6]',`zone`='[value-7]',`depth`='[value-8]',`last_edited`='[value-10]',`note`='[value-11]' WHERE 1
+    
     $query = "UPDATE `inventory` SET `name` = '$name', `quantity` = '$quantity', `shelf` = '$shelf', `level` = '$level', `zone` = '$zone',`depth` = '$depth',`last_edited` = '$last_edited', `note` = '$note' WHERE `serial_number` = '$serial_number'";
     
     $result = mysqli_query($connection, $query);
@@ -52,13 +52,17 @@
     // }
     // $result = mysqli_query($connection, $query);
     // $mysqli -> close();
+
     if (!$result){
         
         // header("level:index.php?message= check the uniqueness of the serial_number.");
         die("Failed to insert data.");
     }
     else {
-        $date = date('Y-m-d h:i', time());
+        $date = date('Y-m-d h:i a', time());
+        $log_date = date('Y-m-d h:i:s a', time());
+        $query = "INSERT INTO `Logs`(`date`, `action`, `person`, `Note`) VALUES ('$log_date','Updated ($serial_number , $name)','Admin','')";
+        $result = mysqli_query($connection,$query);
         header("location:index.php?update_message= Updated: ($serial_number , $name) ($date) .");
 
     }

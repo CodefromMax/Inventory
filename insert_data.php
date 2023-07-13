@@ -32,7 +32,10 @@ if(isset($_POST['add_item'])){
         die("Failed to insert data.");
     }
     else {
-        $date = date('Y-m-d h:i', time());
+        $date = date('Y-m-d h:i a', time());
+        $log_date = date('Y-m-d h:i:s a', time());
+        $query = "INSERT INTO `Logs`(`date`, `action`, `person`, `Note`) VALUES ('$log_date','Added ($serial_number , $name)','Admin','')";
+        $result = mysqli_query($connection,$query);
         header("location:index.php?add_message=Added: ($serial_number , $name) ($date).");
 
     }

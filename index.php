@@ -12,7 +12,11 @@
         <!-- Note: No requirement (required) for filling in the bar: easy to get all item. -->
     </div>
 </form>
-
+<div id = "logs">
+<a href = "log_page.php">
+    <h5> Logs </h5>
+</a>
+</div>
 
 <!-- Dynamic Island: Sticky Navigation bar upon scrolling -->
 <div id="dynamic_island">
@@ -38,8 +42,6 @@
             echo "<h5>"."Log:".$_GET['update_message']."</h5>";
         }
     ?>
-
-    <br>
 
     <!-- Navigation buttons -->
     <a href="#searchbar">Top</a>
@@ -88,7 +90,7 @@
                 // Search bar used: filter based on query
                 else{
                     $val = $_GET['search'];
-                    $query = "SELECT * FROM inventory WHERE CONCAT(`part_number`,`serial_number`,`name`) LIKE '$val%' AND `shelf` = '$shelf' ";
+                    $query = "SELECT * FROM inventory WHERE CONCAT(`part_number`,`serial_number`,`name`) LIKE '%$val%' AND `shelf` = '$shelf' ";
                 }
 
                 // hold the database

@@ -18,6 +18,10 @@ if (!$result){
 }
 
 else{
+    $log_date = date('m/d/Y h:i:s a', time());
+    $query = "INSERT INTO `Logs`(`date`, `action`, `person`, `Note`) VALUES ('$log_date','Deleted ($serial_number , $name)','Admin','')";
+    $result = mysqli_query($connection,$query);
+
     header("location:index.php?delete_message= Deleted ($serial_number , $name)($date)");
 }
 
