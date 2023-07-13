@@ -12,7 +12,7 @@ if (isset($_GET['serial_number'])){
 
 
 $result = mysqli_query($connection,$query);
-$date = date('m/d/Y h:i:s a', time());
+$date = date('m/d/Y h:i a', time());
 if (!$result){
     die("query failed");
 }
