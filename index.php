@@ -109,7 +109,7 @@
                             <!-- Note: Putting the two actions first can reduce scrolling for mobile users. -->
                             <tr>
                                 <td><a href="update_item.php?serial_number=<?php echo $row['serial_number'] ?>" class = "btn btn-success">Update</a>
-                                <td><a href="delete_item.php?id=<?php echo $row['serial_number'] ?>&name= <?php echo $row['name'] ?>" class = "btn btn-danger">Delete</a>
+                                <td><a href="delete_item.php?serial_number=<?php echo $row['serial_number'] ?>&name= <?php echo $row['name'] ?>" class = "btn btn-danger">Delete</a>
                                 <td><?php echo $row['part_number'] ?></td>
                                 <td><?php echo $row['serial_number'] ?></td>
                                 <td><?php echo $row['name'] ?></td>
