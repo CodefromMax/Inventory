@@ -94,7 +94,8 @@
         <input type="radio" name="item_level" value="2" <?php if ($row['level'] == '2') echo 'checked="checked"'; ?> style="margin-left: 10px; margin-right: 5px">2
         <input type="radio" name="item_level" value="3" <?php if ($row['level'] == '3') echo 'checked="checked"'; ?> style="margin-left: 10px; margin-right: 5px">3
         <input type="radio" name="item_level" value="4" <?php if ($row['level'] == '4') echo 'checked="checked"'; ?> style="margin-left: 10px; margin-right: 5px">4
-    
+        <input type="radio" name="item_level" value="5" <?php if ($row['level'] == '5') echo 'checked="checked"'; ?> style="margin-left: 10px; margin-right: 5px">5
+
     
         <br><br>
         <label for="item_zone">7. Zone:</label><br>

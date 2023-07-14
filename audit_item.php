@@ -14,6 +14,6 @@ function audit(){
   $serial_number = $_POST["serial_number"];
     $date = date('m/d/Y h:i a', time());
   
-    mysqli_fetch_assoc(mysqli_query($conn, "UPDATE `inventory` SET `last_audited` = '$date' WHERE `serial_number` = '$serial_number'"));
-    // echo 1;
+    mysqli_query($conn, "UPDATE `inventory` SET `last_audited` = '$date' WHERE `serial_number` = '$serial_number'");
+    echo 1;
 }
