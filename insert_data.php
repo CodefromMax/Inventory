@@ -16,7 +16,7 @@ if(isset($_POST['add_item'])){
     $note = $_POST['item_note'];
     $creation_time = date('Y-m-d h:i a', time());
     $last_edited = date('Y-m-d h:i a', time());
-    $query = "INSERT INTO `inventory`(`part_number`, `serial_number`, `name`, `quantity`, `shelf`, `level`, `zone`, `depth`, `creation_time`, `last_edited`, `note`) VALUES ('$part_number', '$serial_number', '$name', $quantity, '$shelf', '$level', '$zone' ,'$depth','$creation_time','$last_edited','$note')";
+    $query = "INSERT INTO `inventory`(`part_number`, `serial_number`, `name`, `quantity`, `shelf`, `level`, `zone`, `depth`,`last_audited`, `creation_time`, `last_edited`, `note`) VALUES ('$part_number', '$serial_number', '$name', $quantity, '$shelf', '$level', '$zone' ,'$depth','','$creation_time','$last_edited','$note')";
     try{
         $result = mysqli_query($connection, $query);
     } catch (Throwable $exception) { //Use Throwable to catch both errors and exceptions
