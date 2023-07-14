@@ -111,7 +111,7 @@
                             <!-- Note: Putting the two actions first can reduce scrolling for mobile users. -->
                             <tr>
                                 <td><a href="update_item.php?serial_number=<?php echo $row['serial_number'] ?>" class = "btn btn-success">Update</a>
-                                <td> <button type="button" name="button" onclick = "audit_item(<?php echo $row['serial_number']; ?>);" class = "btn btn-success">Audit</button> </td>
+                                <td> <button type="button" name="button" id = "a1" onclick = "audit_item(<?php echo $row['serial_number']; ?>,<?php echo $row['name']; ?>);a1.style.display = 'none'; renew.style.display = 'block';" class = "btn btn-success">Audit</button> <input type="button" id="renew" value="&#10003;" style="display:none" class = "btn btn-success"></td>
                                 <td><a href="delete_item.php?serial_number=<?php echo $row['serial_number'] ?>&name= <?php echo $row['name'] ?>" class = "btn btn-danger">Delete</a>
                                 <td><?php echo $row['part_number'] ?></td>
                                 <td><?php echo $row['serial_number'] ?></td>
@@ -123,9 +123,10 @@
                                 <td><?php echo $row['last_edited'] ?></td> 
                                 <td><?php echo $row['note'] ?></td>   
                             </tr> 
+                        
                             <script type="text/javascript">
       // Function
-      function audit_item(id){
+      function audit_item(id,name){
         $(document).ready(function(){
           $.ajax({
             // Action
@@ -135,22 +136,27 @@
             data: {
               // Get value
                 serial_number: id,
+                name: name,
               action: "audit"
             },
             success:function(response){
               // Response is the output of action file
               if(response == 1){
-                alert("Item Audited");
-                document.getElementById(id).style.display = "none";
+
+                // alert("Item Audited");
+                // $('div').html('<div id = "my-app"> <h1>Audited</h1> </div>');
+                
               }
               else if(response == 0){
                 alert("Data Cannot Be Deleted");
               }
+   
             }
           });
         });
       }
     </script>
+
                             <?php
                             
                         }
@@ -158,7 +164,7 @@
                     else{
                         ?>
                         <tr>
-                        <td colspan="10">No Record Found</td>
+                        <td colspan="12">No Record Found</td>
                         </tr>
                         <?php
                     }
