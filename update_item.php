@@ -108,7 +108,7 @@
         <input type="radio" name="item_depth" value="2" <?php if ($row['depth'] == '2') echo 'checked="checked"'; ?> style="margin-left: 10px; margin-right: 5px">2
         <input type="radio" name="item_depth" value="3" <?php if ($row['depth'] == '3') echo 'checked="checked"'; ?> style="margin-left: 10px; margin-right: 5px">3
         <input type="radio" name="item_depth" value="4" <?php if ($row['depth'] == '4') echo 'checked="checked"'; ?> style="margin-left: 10px; margin-right: 5px">4
-        <input type="radio" name="item_depth" value="5" <?php if ($row['depth'] == '5') echo 'checked="checked"'; ?> style="margin-left: 10px; margin-right: 5px">5  (Deepest)
+        <input type="radio" name="item_depth" value="5" <?php if ($row['depth'] == '5') echo 'checked="checked"'; ?> style="margin-left: 10px; margin-right: 5px">5 
         <br><br>
         <label for="item_note">9. Note:</label><br>
         <input type="text" name = "item_note" class = "form-control" value = "<?php echo $row['note']?>" >
