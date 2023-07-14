@@ -111,12 +111,14 @@
                             <!-- Note: Putting the two actions first can reduce scrolling for mobile users. -->
                             <tr>
                                 <td><a href="update_item.php?serial_number=<?php echo $row['serial_number'] ?>" class = "btn btn-success">Update</a>
+                                <td> <button type="button" name="button" onclick = "deletedata(<?php echo $row['id']; ?>);">Audit</button> </td>
                                 <td><a href="delete_item.php?serial_number=<?php echo $row['serial_number'] ?>&name= <?php echo $row['name'] ?>" class = "btn btn-danger">Delete</a>
                                 <td><?php echo $row['part_number'] ?></td>
                                 <td><?php echo $row['serial_number'] ?></td>
                                 <td><?php echo $row['name'] ?></td>
                                 <td><?php echo $row['quantity'] ?></td>
                                 <td><?php echo $row['shelf']."-".$row['level']."-".$row['zone']."-".$row['depth']?></td>
+                                <td><?php echo $row['last_audited'] ?></td> 
                                 <td><?php echo $row['creation_time'] ?></td> 
                                 <td><?php echo $row['last_edited'] ?></td> 
                                 <td><?php echo $row['note'] ?></td>   
@@ -146,6 +148,34 @@
     }
     echo "</div>";     
 ?>
+<script type="text/javascript">
+      // Function
+      function deletedata(id){
+        $(document).ready(function(){
+          $.ajax({
+            // Action
+            url: 'audit_item.php',
+            // Method
+            type: 'POST',
+            data: {
+              // Get value
+                serial_number: id,
+              action: "audit"
+            },
+            success:function(response){
+              // Response is the output of action file
+              if(response == 1){
+                alert("Data Deleted Successfully");
+                document.getElementById(id).style.display = "none";
+              }
+              else if(response == 0){
+                alert("Data Cannot Be Deleted");
+              }
+            }
+          });
+        });
+      }
+    </script>
 </div>
 
 <?php include("footer.php");?>

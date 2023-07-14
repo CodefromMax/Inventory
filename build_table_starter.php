@@ -7,12 +7,14 @@
         <thead>
             <tr> 
                 <th>Update</th>
+                <th>Audit</th>
                 <th>Delete</th>
                 <th>Part Number</th>
                 <th>Serial Number</th>
                 <th>Name</th>
                 <th>Quantity</th>
                 <th>Shelf-Level-Zone-Depth</th>
+                <th>Last Audited On</th>
                 <th>Created On</th>
                 <th>Last Edited On</th>
                 <th>Note</th>
