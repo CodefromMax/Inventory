@@ -79,7 +79,6 @@
                 // HTML for table header
                 include('build_table_starter.php');
 
-
                 // Connect MySQL Database to display
                 // No Search query: Display all
                 if(!isset($_GET['search'])){
@@ -108,12 +107,13 @@
                         //fetch each item       
                         while($row = mysqli_fetch_assoc($result)){
                             ?>
-                            <!-- Note: Putting the two actions first can reduce scrolling for mobile users. -->
+
+                            <!-- Note: Design choice: Putting the three action buttons first can reduce scrolling for mobile users. -->
                             <div id = "each<?php echo $row['serial_number'] ?>">
                             <tr>
                                 <td><a href="update_item.php?serial_number=<?php echo $row['serial_number']; ?>" class = "btn btn-success">Update</a>
-                                <td> <button type="button" name="button" id = "a1" onclick = "style.display = 'none';document.getElementById(<?php echo $row['serial_number']; ?>).style.display = 'block';audit_item(<?php echo $row['serial_number']; ?>,<?php echo $row['name']; ?>);" class = "btn btn-success">Audit</button><input type="button" id="<?php echo $row['serial_number']; ?>" value="&#10003;" onclick = "style.display = 'block';" style="display:none" class = "btn btn-success"> </td>
-                                <!-- <td><a href="delete_item.php?serial_number=<?php echo $row['serial_number'] ?>&name= <?php echo $row['name'] ?>" class = "btn btn-danger">Delete</a> -->
+                                <!-- Note: Design choice: Once the audit button is clicked: 1. The button will be replaced with a check mark. 2. Date for last audited will be updated in the database (but it won be displayed until reloading the page.) -->
+                                <td> <button type="button" name="button" id = "audit" onclick = "style.display = 'none';document.getElementById(<?php echo $row['serial_number']; ?>).style.display = 'block';audit_item(<?php echo $row['serial_number']; ?>,<?php echo $row['name']; ?>);" class = "btn btn-success">Audit</button><input type="button" id="<?php echo $row['serial_number']; ?>" value="&#10003;" style="display:none" class = "btn btn-success"> </td>
                                 <td><a href="delete_item.php?serial_number=<?php echo $row['serial_number'] ?>&name= <?php echo $row['name'] ?>" onclick = "document.getElementById('each<?php echo $row['serial_number']; ?>').style.display = 'none';" class = "btn btn-danger">Delete</a>
                                 <td><?php echo $row['part_number'] ?></td>
                                 <td><?php echo $row['serial_number'] ?></td>
@@ -143,10 +143,7 @@
                 
                 // Update form
                 include('add_item_form.php');
-        
-
                
-
     }
     echo "</div>";     
 ?>
@@ -154,6 +151,11 @@
 </div>
 
 <!-- audit item -->
+<!-- Note: it is different from update and delete button, 
+the page won't be refreshed. The display of the actual 
+updated last_audited date will be deleyed until next refresh,
+and the responsive audit button is enough for user to
+acknowledge the change  -->
 <script type="text/javascript">
     // Function
     function audit_item(id,name){
@@ -180,7 +182,7 @@
                 }
 
                 else if(response == 0){
-                alert("Data Cannot Be Deleted");
+                alert("item cannot Be Audited");
                 }
             }
             });

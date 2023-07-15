@@ -16,8 +16,9 @@ function audit(){
     $name = $_POST["name"];
     $date = date('m/d/Y h:i a', time());
 
-
+    // SQL for audit
     mysqli_query($conn, "UPDATE `inventory` SET `last_audited` = '$date' WHERE `serial_number` = '$serial_number'");
+    
     $log_date = date('Y-m-d h:i:s a', time());
     $query = "INSERT INTO `Logs`(`date`, `action`, `person`, `Note`) VALUES ('$log_date','Audited ($serial_number , $name)','Admin','')";
     mysqli_query($conn,$query);

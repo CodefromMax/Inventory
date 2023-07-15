@@ -14,9 +14,9 @@
                 <th>Name</th>
                 <th>Quantity</th>
                 <th>Shelf-Level-Zone-Depth</th>
-                <th>Last Audited On</th>
+                <th>Audited On</th>
                 <th>Created On</th>
-                <th>Last Edited On</th>
+                <th>Edited On</th>
                 <th>Note</th>
             </tr> 
         </thead>
