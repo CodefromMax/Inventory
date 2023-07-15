@@ -84,13 +84,13 @@
                 // No Search query: Display all
                 if(!isset($_GET['search'])){
                     // Note: using the SELECT query style `table` 
-                    $query = "SELECT * FROM `inventory` WHERE `shelf` = '$shelf' ";
+                    $query = "SELECT * FROM `inventory` WHERE `shelf` = '$shelf' ORDER BY `level`,`zone`,`depth` ";
                 }
 
                 // Search bar used: filter based on query
                 else{
                     $val = $_GET['search'];
-                    $query = "SELECT * FROM inventory WHERE CONCAT(`part_number`,`serial_number`,`name`) LIKE '%$val%' AND `shelf` = '$shelf' ";
+                    $query = "SELECT * FROM inventory WHERE CONCAT(`part_number`,`serial_number`,`name`) LIKE '%$val%' AND `shelf` = '$shelf' ORDER BY `level`,`zone`,`depth`";
                 }
 
                 // hold the database
@@ -109,10 +109,12 @@
                         while($row = mysqli_fetch_assoc($result)){
                             ?>
                             <!-- Note: Putting the two actions first can reduce scrolling for mobile users. -->
+                            <div id = "each<?php echo $row['serial_number'] ?>">
                             <tr>
-                                <td><a href="update_item.php?serial_number=<?php echo $row['serial_number'] ?>" class = "btn btn-success">Update</a>
-                                <td> <button type="button" name="button" id = "a1" onclick = "audit_item(<?php echo $row['serial_number']; ?>,<?php echo $row['name']; ?>);a1.style.display = 'none'; renew.style.display = 'block';" class = "btn btn-success">Audit</button> <input type="button" id="renew" value="&#10003;" style="display:none" class = "btn btn-success"></td>
-                                <td><a href="delete_item.php?serial_number=<?php echo $row['serial_number'] ?>&name= <?php echo $row['name'] ?>" class = "btn btn-danger">Delete</a>
+                                <td><a href="update_item.php?serial_number=<?php echo $row['serial_number']; ?>" class = "btn btn-success">Update</a>
+                                <td> <button type="button" name="button" id = "a1" onclick = "style.display = 'none';document.getElementById(<?php echo $row['serial_number']; ?>).style.display = 'block';audit_item(<?php echo $row['serial_number']; ?>,<?php echo $row['name']; ?>);" class = "btn btn-success">Audit</button><input type="button" id="<?php echo $row['serial_number']; ?>" value="&#10003;" onclick = "style.display = 'block';" style="display:none" class = "btn btn-success"> </td>
+                                <!-- <td><a href="delete_item.php?serial_number=<?php echo $row['serial_number'] ?>&name= <?php echo $row['name'] ?>" class = "btn btn-danger">Delete</a> -->
+                                <td><a href="delete_item.php?serial_number=<?php echo $row['serial_number'] ?>&name= <?php echo $row['name'] ?>" onclick = "document.getElementById('each<?php echo $row['serial_number']; ?>').style.display = 'none';" class = "btn btn-danger">Delete</a>
                                 <td><?php echo $row['part_number'] ?></td>
                                 <td><?php echo $row['serial_number'] ?></td>
                                 <td><?php echo $row['name'] ?></td>
@@ -123,48 +125,14 @@
                                 <td><?php echo $row['last_edited'] ?></td> 
                                 <td><?php echo $row['note'] ?></td>   
                             </tr> 
-                        
-                            <script type="text/javascript">
-      // Function
-      function audit_item(id,name){
-        $(document).ready(function(){
-          $.ajax({
-            // Action
-            url: 'audit_item.php',
-            // Method
-            type: 'POST',
-            data: {
-              // Get value
-                serial_number: id,
-                name: name,
-              action: "audit"
-            },
-            success:function(response){
-              // Response is the output of action file
-              if(response == 1){
-
-                // alert("Item Audited");
-                // $('div').html('<div id = "my-app"> <h1>Audited</h1> </div>');
-                
-              }
-              else if(response == 0){
-                alert("Data Cannot Be Deleted");
-              }
-   
-            }
-          });
-        });
-      }
-    </script>
-
+                            </div>
                             <?php
-                            
                         }
                     }
                     else{
                         ?>
                         <tr>
-                        <td colspan="12">No Record Found</td>
+                            <td colspan="12">No Record Found</td>
                         </tr>
                         <?php
                     }
@@ -184,6 +152,41 @@
 ?>
 
 </div>
+
+<!-- audit item -->
+<script type="text/javascript">
+    // Function
+    function audit_item(id,name){
+        $(document).ready(function(){
+            $.ajax({
+            // Action
+            url: 'audit_item.php',
+            // Method
+            type: 'POST',
+            data: {
+                // Get value
+                serial_number: id,
+                name:name,
+                action: "audit"
+            },
+            success:function(response){
+
+                // Response is the output of action file
+                if(response == 1){
+                // Response is already covered in onclick event of the audit button.
+                // alert("Item Audited");
+                // $('div').html('<div id = "my-app"> <h1>Audited</h1> </div>');
+                
+                }
+
+                else if(response == 0){
+                alert("Data Cannot Be Deleted");
+                }
+            }
+            });
+        });
+    }
+</script>
 
 <?php include("footer.php");?>
 

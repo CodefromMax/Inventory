@@ -24,5 +24,3 @@ else{
 
     header("location:index.php?delete_message= Deleted ($serial_number , $name)($date)");
 }
-
-    
