@@ -90,6 +90,7 @@
         <input type="radio" name="item_division" value="PCS" style="margin-left: 10px; margin-right: 5px" <?php if ($row['division'] == 'PCS') echo 'checked'; ?>>PCS
         <input type="radio" name="item_division" value="ITM" style="margin-left: 10px; margin-right: 5px" <?php if ($row['division'] == 'ITM') echo 'checked'; ?>>ITM
         <br>
+        
         <label for="item_shelf">6. Shelf:</label><br>
         <input type="radio" name="item_shelf" value="A" required style="margin-left: 10px; margin-right: 5px" <?php if ($row['shelf'] == 'A') echo 'checked'; ?>>A  
         <input type="radio" name="item_shelf" value="B" style="margin-left: 10px; margin-right: 5px" <?php if ($row['shelf'] == 'B') echo 'checked'; ?>>B  
