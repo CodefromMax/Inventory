@@ -32,8 +32,16 @@
             <br><br>
             <label for="item_quantity">4. Quantity:</label>
             <input type="number" name = "item_quantity" class = "form-control" value="1" required>
+            
             <br>
-            <label for="item_shelf">5. Shelf:</label><br>    
+            <label for="item_shelf">5. Division:</label><br>    
+            <input type="radio" name="item_division" value="DNS" required style="margin-left: 10px; margin-right: 5px">DNS  
+            <input type="radio" name="item_division" value="PCS" style="margin-left: 10px; margin-right: 5px">PCS
+            <input type="radio" name="item_division" value="ITM" style="margin-left: 10px; margin-right: 5px">ITM
+            <br>
+            
+            <br>
+            <label for="item_shelf">6. Shelf:</label><br>    
             <input type="radio" name="item_shelf" value="A" required style="margin-left: 10px; margin-right: 5px">A  
             <input type="radio" name="item_shelf" value="B" style="margin-left: 10px; margin-right: 5px">B  
             <input type="radio" name="item_shelf" value="C" style="margin-left: 10px; margin-right: 5px">C  
@@ -41,26 +49,26 @@
             <input type="radio" name="item_shelf" value="E" style="margin-left: 10px; margin-right: 5px">E  
             <input type="radio" name="item_shelf" value="F" style="margin-left: 10px; margin-right: 5px">F  
             <br>
-            <label for="item_level">6. Level:</label><br>
+            <label for="item_level">7. Level:</label><br>
             <input type="radio" name="item_level" value="1" required style="margin-left: 10px; margin-right: 5px">1 (Top)
             <input type="radio" name="item_level" value="2" style="margin-left: 10px; margin-right: 5px">2
             <input type="radio" name="item_level" value="3" style="margin-left: 10px; margin-right: 5px">3
             <input type="radio" name="item_level" value="4" style="margin-left: 10px; margin-right: 5px">4
             <input type="radio" name="item_level" value="5" style="margin-left: 10px; margin-right: 5px">5
             <br>
-            <label for="item_zone">7. Zone:</label><br>
+            <label for="item_zone">8. Zone:</label><br>
             <input type="radio" name="item_zone" value="Left" required style="margin-left: 10px; margin-right: 5px">Left
             <input type="radio" name="item_zone" value="Middle" style="margin-left: 10px; margin-right: 5px">Middle
             <input type="radio" name="item_zone" value="Right" style="margin-left: 10px; margin-right: 5px">Right
             <br>
-            <label for="item_depth">8. Depth:</label><br>
+            <label for="item_depth">9. Depth:</label><br>
             <input type="radio" name="item_depth" value="1" required style="margin-left: 10px; margin-right: 5px">1 (Surface)
             <input type="radio" name="item_depth" value="2" style="margin-left: 10px; margin-right: 5px">2
             <input type="radio" name="item_depth" value="3" style="margin-left: 10px; margin-right: 5px">3
             <input type="radio" name="item_depth" value="4" style="margin-left: 10px; margin-right: 5px">4
             <input type="radio" name="item_depth" value="5" style="margin-left: 10px; margin-right: 5px">5 
             <br>
-            <label for="item_note">9. Note:</label><br>
+            <label for="item_note">10. Note:</label><br>
             <input type="text" name = "item_note" class = "form-control" >
             
           </div>

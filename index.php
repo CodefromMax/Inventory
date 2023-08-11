@@ -12,10 +12,22 @@
         <!-- Note: No requirement (required) for filling in the bar: easy to get all item. -->
     </div>
 </form>
+
+<div class = "division">
+<form action="" method="GET">
+<button type="submit" name = "ALL" class="btn btn-light" value = "ALL" >ALL</button>
+<button type="submit" name = "DNS" class="btn btn-light" value = "DNS" >DNS</button>
+<button type="submit" name = "PCS" class="btn btn-light" value = "PCS" >PCS</button>
+<button type="submit" name = "ITM" class="btn btn-light" value = "ITM" >ITM</button>
+</form>
+</div>
+
 <div id = "logs">
 <a href = "log_page.php">
-    <h5> Logs </h5>
+    <h4> Logs </h4>
 </a>
+
+
 </div>
 
 <!-- Dynamic Island: Sticky Navigation bar upon scrolling -->
@@ -81,16 +93,59 @@
 
                 // Connect MySQL Database to display
                 // No Search query: Display all
-                if(!isset($_GET['search'])){
-                    // Note: using the SELECT query style `table` 
-                    $query = "SELECT * FROM `inventory` WHERE `shelf` = '$shelf' ORDER BY `level`,`zone`,`depth` ";
+
+                if (isset($_GET['ALL'])){
+                    if(!isset($_GET['search'])){
+                        // Note: using the SELECT query style `table` 
+                        $query = "SELECT * FROM `inventory` WHERE `shelf` = '$shelf' ORDER BY `level`,`zone`,`depth` ";
+                    }
+    
+                    // Search bar used: filter based on query
+                    else{
+                        $val = $_GET['search'];
+                        $query = "SELECT * FROM inventory WHERE CONCAT(`part_number`,`serial_number`,`name`) LIKE '%$val%' AND `shelf` = '$shelf' ORDER BY `level`,`zone`,`depth`";
+                    }
                 }
 
-                // Search bar used: filter based on query
-                else{
-                    $val = $_GET['search'];
-                    $query = "SELECT * FROM inventory WHERE CONCAT(`part_number`,`serial_number`,`name`) LIKE '%$val%' AND `shelf` = '$shelf' ORDER BY `level`,`zone`,`depth`";
+                if (isset($_GET['PCS'])){
+                    if(!isset($_GET['search'])){
+                        // Note: using the SELECT query style `table` 
+                        $query = "SELECT * FROM `inventory` WHERE `shelf` = '$shelf' AND `division` = 'PCS' ORDER BY `level`,`zone`,`depth` ";
+                    }
+    
+                    // Search bar used: filter based on query
+                    else{
+                        $val = $_GET['search'];
+                        $query = "SELECT * FROM inventory WHERE CONCAT(`part_number`,`serial_number`,`name`) LIKE '%$val%' AND `shelf` = '$shelf' AND `division` = 'PCS' ORDER BY `level`,`zone`,`depth`";
+                    }
                 }
+
+                if (isset($_GET['DNS'])){
+                    if(!isset($_GET['search'])){
+                        // Note: using the SELECT query style `table` 
+                        $query = "SELECT * FROM `inventory` WHERE `shelf` = '$shelf' AND `division` = 'DNS' ORDER BY `level`,`zone`,`depth` ";
+                    }
+    
+                    // Search bar used: filter based on query
+                    else{
+                        $val = $_GET['search'];
+                        $query = "SELECT * FROM inventory WHERE CONCAT(`part_number`,`serial_number`,`name`) LIKE '%$val%' AND `shelf` = '$shelf' AND `division` = 'DNS' ORDER BY `level`,`zone`,`depth`";
+                    }
+                }
+
+                if (isset($_GET['ITM'])){
+                    if(!isset($_GET['search'])){
+                        // Note: using the SELECT query style `table` 
+                        $query = "SELECT * FROM `inventory` WHERE `shelf` = '$shelf' AND `division` = 'ITM' ORDER BY `level`,`zone`,`depth` ";
+                    }
+    
+                    // Search bar used: filter based on query
+                    else{
+                        $val = $_GET['search'];
+                        $query = "SELECT * FROM inventory WHERE CONCAT(`part_number`,`serial_number`,`name`) LIKE '%$val%' AND `shelf` = '$shelf' AND `division` = 'ITM' ORDER BY `level`,`zone`,`depth`";
+                    }
+                }
+
 
                 // hold the database
                 $result = mysqli_query($connection,$query);
@@ -119,6 +174,7 @@
                                 <td><?php echo $row['serial_number'] ?></td>
                                 <td><?php echo $row['name'] ?></td>
                                 <td><?php echo $row['quantity'] ?></td>
+                                <td><?php echo $row['division'] ?></td>
                                 <td><?php echo $row['shelf']."-".$row['level']."-".$row['zone']."-".$row['depth']?></td>
                                 <td><?php echo $row['last_audited'] ?></td> 
                                 <td><?php echo $row['creation_time'] ?></td> 
@@ -132,7 +188,7 @@
                     else{
                         ?>
                         <tr>
-                            <td colspan="12">No Record Found</td>
+                            <td colspan="13">No Record Found</td>
                         </tr>
                         <?php
                     }

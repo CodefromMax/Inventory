@@ -13,6 +13,7 @@
                 <th>Serial Number</th>
                 <th>Name</th>
                 <th>Quantity</th>
+                <th>Division</th>
                 <th>Shelf-Level-Zone-Depth</th>
                 <th>Audited On</th>
                 <th>Created On</th>

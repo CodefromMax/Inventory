@@ -82,7 +82,7 @@ if(isset($_GET['search']))
       <!-- <p><?php echo $shelf ?></p> -->
       <div class="modal-body">
             <div class = "form-group"> 
-                <label for="item_id">1. Id:</label><br>
+                <label for="item_id">1. IdDDD:</label><br>
                 <input type="text" name = "item_id" class = "form-control" required>
                 <label for="item_name">2. Name:</label><br>
                 <input type="text" name = "item_name" class = "form-control" required>
@@ -137,7 +137,6 @@ if(isset($_GET['search']))
 
 ?>
 
-// <?php
     
     
     

@@ -8,6 +8,7 @@ if(isset($_POST['add_item'])){
     $serial_number = $_POST['item_serial_number'];
     $name = $_POST['item_name'];
     $quantity = $_POST['item_quantity'];
+    $division = $_POST['item_division'];
     $shelf = $_POST['item_shelf'];
     $level = $_POST['item_level'];
     $zone = $_POST['item_zone'];
@@ -15,7 +16,7 @@ if(isset($_POST['add_item'])){
     $note = $_POST['item_note'];
     $creation_time = date('Y-m-d h:i a', time());
     $last_edited = date('Y-m-d h:i a', time());
-    $query = "INSERT INTO `inventory`(`part_number`, `serial_number`, `name`, `quantity`, `shelf`, `level`, `zone`, `depth`,`last_audited`, `creation_time`, `last_edited`, `note`) VALUES ('$part_number', '$serial_number', '$name', $quantity, '$shelf', '$level', '$zone' ,'$depth','','$creation_time','$last_edited','$note')";
+    $query = "INSERT INTO `inventory`(`part_number`, `serial_number`, `name`, `quantity`, `division`, `shelf`, `level`, `zone`, `depth`,`last_audited`, `creation_time`, `last_edited`, `note`) VALUES ('$part_number', '$serial_number', '$name', $quantity, '$shelf', '$level', '$zone' ,'$depth','','$creation_time','$last_edited','$note')";
     
     try{
         $result = mysqli_query($connection, $query);
