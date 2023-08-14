@@ -1,6 +1,7 @@
 <?php include('header.php'); ?>
 <?php include('dbcon.php'); ?>
-<?php date_default_timezone_set('America/Toronto'); ?>
+<?php date_default_timezone_set('America/Toronto'); 
+session_start();?>
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     </script>
 
@@ -13,21 +14,24 @@
     </div>
 </form>
 
-<!-- Note: Give each division a different page makes search function easy to apply -->
+<!-- Note: Giving each division a different page makes search function easy to apply -->
 <div class = "division">
-<a href = "index.php"> <button name = "ALL" class="btn btn-light" >ALL</button> </a>
-<a href = "DNS_page.php"> <button name = "DNS" class="btn btn-light" >DNS</button> </a>
-<a href = "PCS_page.php"> <button name = "PCS" class="btn btn-light" >PCS</button> </a>
-<a href = "ITM_page.php"> <button name = "ITM" class="btn btn-light" >ITM</button> </a>
+    <a href = "index.php"> <button name = "ALL" class="btn btn-light" >ALL</button> </a>
+    <a href = "DNS_page.php"> <button name = "DNS" class="btn btn-light" >DNS</button> </a>
+    <a href = "PCS_page.php"> <button name = "PCS" class="btn btn-light" >PCS</button> </a>
+    <a href = "ITM_page.php"> <button name = "ITM" class="btn btn-light" >ITM</button> </a>
+</div>
 
+<div id = "export">
+    <form method="post" action="export.php" style = "text-align:center">  
+        <input type="submit" name="export" value="Export Inventory Database" class="btn btn-success" />  
+    </form>
 </div>
 
 <div id = "logs">
-<a href = "log_page.php">
-    <h4> Logs </h4>
-</a>
-
-
+    <a href = "log_page.php">
+        <button style = "background-color: transparent; font-size: 25px;border: none;"> Logs </button>
+    </a>
 </div>
 
 <!-- Dynamic Island: Sticky Navigation bar upon scrolling -->
@@ -85,27 +89,52 @@
         
             <!-- Create shelf anchors for Navigation bar -->
             <a name = "<?php echo $shelf."anchor" ?>">
-            
+            <!-- Title -->
+<h2> <?php echo $shelf ?> </h2>
+
+<!-- Table -->
+</div>
+    <table class = "table table-hover table-bordered table-striped">   
+        <thead>
+            <tr> 
+                <th>Update</th>
+                <th>Audit</th>
+                <th>Delete</th>
+                <th>Part Number</th>
+                <th>Serial Number</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Notify at</th>
+                <th>Division</th>
+                <th>Shelf-Level-Zone-Depth</th>
+                <th>Audited On</th>
+                <th>Created On</th>
+                <th>Edited On</th>
+                <th>Note</th>
+            </tr> 
+        </thead>
+    <tbody>
             <?php
                 
                 // HTML for table header
-                include('build_table_starter.php');
+                // include('build_table_starter.php');
 
                 // Connect MySQL Database to display
                 // No Search query: Display all
 
                
                 if(!isset($_GET['search'])){
-                    // Note: using the SELECT query style `table` 
-                    $query = "SELECT * FROM `inventory` WHERE `shelf` = '$shelf' AND `division` = 'ITM' ORDER BY `level`,`zone`,`depth` ";
+                    // Note: using the SELECT query style `table` #Order by Shelf is used in downloading the data
+                    $query = "SELECT * FROM `inventory` WHERE `shelf` = '$shelf' AND `division` = 'ITM' ORDER BY `shelf`,`level`,`zone`,`depth` ";
                 }
 
                 // Search bar used: filter based on query
                 else{
                     $val = $_GET['search'];
-                    $query = "SELECT * FROM inventory WHERE CONCAT(`part_number`,`serial_number`,`name`) LIKE '%$val%' AND `shelf` = '$shelf' AND `division` = 'ITM' ORDER BY `level`,`zone`,`depth`";
+                    $query = "SELECT * FROM inventory WHERE CONCAT(`part_number`,`serial_number`,`name`) LIKE '%$val%' AND `shelf` = '$shelf' AND `division` = 'ITM' ORDER BY `shelf`,`level`,`zone`,`depth`";
                 }
                 
+                $_SESSION["sql"] = "$query";
 
                 // hold the database
                 $result = mysqli_query($connection,$query);
@@ -125,7 +154,31 @@
 
                             <!-- Note: Design choice: Putting the three action buttons first can reduce scrolling for mobile users. -->
                             <div id = "each<?php echo $row['serial_number'] ?>">
-                            <tr>
+                            <?php
+                            
+                            if (intval($row["quantity"]) < intval($row["minimum"])) {
+                                ?>
+                                <tr>
+                                <td><a href="update_item.php?serial_number=<?php echo $row['serial_number']; ?>" class = "btn btn-success">Update</a>
+                                <!-- Note: Design choice: Once the audit button is clicked: 1. The button will be replaced with a check mark. 2. Date for last audited will be updated in the database (but it won be displayed until reloading the page.) -->
+                                <td><input type="button" id="<?php echo $row['serial_number']; ?>" value="&#10003;" style="display:none" class = "btn btn-success">  <button type="button" name="button" id = "audit" onclick = "style.display = 'none';document.getElementById('<?php echo $row['serial_number']; ?>').style.display = 'block';audit_item('<?php echo $row['serial_number']; ?>','<?php echo $row['name']; ?>');" class = "btn btn-success">Audit</button></td>
+                                <td><a href="delete_item.php?serial_number=<?php echo $row['serial_number'] ?>&name= <?php echo $row['name'] ?>" onclick = "document.getElementById('each<?php echo $row['serial_number']; ?>').style.display = 'none';" class = "btn btn-danger">Delete</a>
+                                <td><?php echo $row['part_number'] ?></td>
+                                <td><?php echo $row['serial_number'] ?></td>
+                                <td><?php echo $row['name'] ?></td>
+                                <td style = "background-color:yellow;"><?php echo $row['quantity'] ?></td>
+                                <td style = "background-color:yellow;"><?php echo $row['minimum'] ?></td>
+                                <td><?php echo $row['division'] ?></td>
+                                <td><?php echo $row['shelf']."-".$row['level']."-".$row['zone']."-".$row['depth']?></td>
+                                <td><?php echo $row['last_audited'] ?></td> 
+                                <td><?php echo $row['creation_time'] ?></td> 
+                                <td><?php echo $row['last_edited'] ?></td> 
+                                <td><?php echo $row['note'] ?></td>   
+                               </tr>
+                                <?php
+                            } else {
+                                ?>
+                               <tr class='bg-yellow'>
                                 <td><a href="update_item.php?serial_number=<?php echo $row['serial_number']; ?>" class = "btn btn-success">Update</a>
                                 <!-- Note: Design choice: Once the audit button is clicked: 1. The button will be replaced with a check mark. 2. Date for last audited will be updated in the database (but it won be displayed until reloading the page.) -->
                                 <td><input type="button" id="<?php echo $row['serial_number']; ?>" value="&#10003;" style="display:none" class = "btn btn-success">  <button type="button" name="button" id = "audit" onclick = "style.display = 'none';document.getElementById('<?php echo $row['serial_number']; ?>').style.display = 'block';audit_item('<?php echo $row['serial_number']; ?>','<?php echo $row['name']; ?>');" class = "btn btn-success">Audit</button></td>
@@ -134,13 +187,18 @@
                                 <td><?php echo $row['serial_number'] ?></td>
                                 <td><?php echo $row['name'] ?></td>
                                 <td><?php echo $row['quantity'] ?></td>
+                                <td><?php echo $row['minimum'] ?></td>
                                 <td><?php echo $row['division'] ?></td>
                                 <td><?php echo $row['shelf']."-".$row['level']."-".$row['zone']."-".$row['depth']?></td>
                                 <td><?php echo $row['last_audited'] ?></td> 
                                 <td><?php echo $row['creation_time'] ?></td> 
                                 <td><?php echo $row['last_edited'] ?></td> 
                                 <td><?php echo $row['note'] ?></td>   
-                            </tr> 
+                                </tr> 
+                            <?php
+                            }
+                            ?>
+                           
                             </div>
                             <?php
                         }

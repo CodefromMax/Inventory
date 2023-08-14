@@ -1,6 +1,7 @@
 <?php include('header.php'); ?>
 <?php include('dbcon.php'); ?>
-<?php date_default_timezone_set('America/Toronto'); ?>
+<?php date_default_timezone_set('America/Toronto'); 
+session_start();?>
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     </script>
 
@@ -13,21 +14,24 @@
     </div>
 </form>
 
-<!-- Note: Give each division a different page makes search function easy to apply -->
+<!-- Note: Giving each division a different page makes search function easy to apply -->
 <div class = "division">
-<a href = "index.php"> <button name = "ALL" class="btn btn-light" >ALL</button> </a>
-<a href = "DNS_page.php"> <button name = "ALL" class="btn btn-light" >DNS</button> </a>
-<a href = "PCS_page.php"> <button name = "PCS" class="btn btn-light" >PCS</button> </a>
-<a href = "ITM_page.php"> <button name = "ITM" class="btn btn-light" >ITM</button> </a>
+    <a href = "index.php"> <button name = "ALL" class="btn btn-light" >ALL</button> </a>
+    <a href = "DNS_page.php"> <button name = "ALL" class="btn btn-light" >DNS</button> </a>
+    <a href = "PCS_page.php"> <button name = "PCS" class="btn btn-light" >PCS</button> </a>
+    <a href = "ITM_page.php"> <button name = "ITM" class="btn btn-light" >ITM</button> </a>
+</div>
 
+<div id = "export">
+    <form method="post" action="export.php" style = "text-align:center">  
+        <input type="submit" name="export" value="Export Inventory Database" class="btn btn-success" />  
+    </form>
 </div>
 
 <div id = "logs">
-<a href = "log_page.php">
-    <h4> Logs </h4>
-</a>
-
-
+    <a href = "log_page.php">
+        <button style = "text-align: left; background-color: transparent; color: black; font-size: 25px;border: none;text-decoration:underline;"> Logs </button>
+    </a>
 </div>
 
 <!-- Dynamic Island: Sticky Navigation bar upon scrolling -->
@@ -96,16 +100,16 @@
 
                
                 if(!isset($_GET['search'])){
-                    // Note: using the SELECT query style `table` 
-                    $query = "SELECT * FROM `inventory` WHERE `shelf` = '$shelf' ORDER BY `level`,`zone`,`depth` ";
+                    // Note: using the SELECT query style `table` #Order by Shelf is used in downloading the data
+                    $query = "SELECT * FROM `inventory` WHERE `shelf` = '$shelf' ORDER BY `shelf`,`level`,`zone`,`depth` ";
                 }
 
                 // Search bar used: filter based on query
                 else{
                     $val = $_GET['search'];
-                    $query = "SELECT * FROM inventory WHERE CONCAT(`part_number`,`serial_number`,`name`) LIKE '%$val%' AND `shelf` = '$shelf' ORDER BY `level`,`zone`,`depth`";
+                    $query = "SELECT * FROM `inventory` WHERE `shelf` = '$shelf' AND CONCAT(`part_number`,`serial_number`,`name`) LIKE '%$val%' ORDER BY `shelf`,`level`,`zone`,`depth`";
                 }
-                
+                $_SESSION["sql"] = "$query";
 
                 // hold the database
                 $result = mysqli_query($connection,$query);
