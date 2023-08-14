@@ -38,8 +38,8 @@
 
             <br>
             <label for="item_minimum">5. Minimum quantity (Reordering point):</label>
-            <input type="text" name = "item_minimum" class = "form-control" value="None" required>
-
+            <input type="text" name = "item_minimum" class = "form-control" >
+     
             <br>
             <label for="item_shelf">6. Division:</label><br>    
             <input type="radio" name="item_division" value="DNS" required style="margin-left: 10px; margin-right: 5px">DNS  
