@@ -3,7 +3,8 @@
 
 <?php ini_set('display_errors', 1); error_reporting(-1);?>
 
-<?php date_default_timezone_set('America/Toronto'); ?>
+<?php date_default_timezone_set('America/Toronto'); 
+session_start()?>
 
 
 <?php if (isset($_GET['serial_number'])){
@@ -63,10 +64,12 @@
     else {
         $date = date('Y-m-d h:i a', time());
         $log_date = date('Y-m-d h:i:s a', time());
-        $query = "INSERT INTO `Logs`(`date`, `action`, `person`, `Note`) VALUES ('$log_date','Updated ($serial_number , $name)',$division,'')";
+        $query = "INSERT INTO `Logs`(`date`, `action`, `person`, `Note`) VALUES ('$log_date','Updated ($serial_number , $name)','$division','')";
         $result = mysqli_query($connection,$query);
-        header("location:index.php?update_message= Updated: ($serial_number , $name) ($date) .");
-
+        $bits = explode('?',$_SERVER['HTTP_REFERRER']);
+        // $redirect = $bits[0];
+        header("location:".$_SESSION['current_page']."?update_message= Updated: ($serial_number , $name) ($date) .");
+        // ".$_SERVER['HTTP_REFERER']."
     }
 }
 }

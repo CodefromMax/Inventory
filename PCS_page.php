@@ -1,7 +1,8 @@
 <?php include('header.php'); ?>
 <?php include('dbcon.php'); ?>
 <?php date_default_timezone_set('America/Toronto');
-session_start(); ?>
+session_start(); 
+$_SESSION["current_page"] = "PCS_page.php";?>
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     </script>
 
@@ -30,7 +31,7 @@ session_start(); ?>
 
 <div id = "logs">
     <a href = "log_page.php">
-        <button style = "background-color: transparent; font-size: 25px;border: none;"> Logs </button>
+        <button style = "background-color: transparent; font-size: 25px;border: none;text-decoration:underline;"> Logs </button>
     </a>
 </div>
 

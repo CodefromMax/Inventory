@@ -1,7 +1,8 @@
 <?php include('header.php'); ?>
 <?php include('dbcon.php'); ?>
 <?php date_default_timezone_set('America/Toronto'); 
-session_start();?>
+session_start();
+$_SESSION["current_page"] = "ITM_page.php";?>
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     </script>
 
@@ -28,9 +29,17 @@ session_start();?>
     </form>
 </div>
 
+
+<div id = "notify" class="input-group mb-3">
+    <form action="" method="GET">
+        <input type="hidden" name="notify" value="True" class="form-control" >
+        <button type="submit" class="btn btn-primary btn-block" >Check Below Minimum Items</button>
+    </form>
+</div>
+
 <div id = "logs">
     <a href = "log_page.php">
-        <button style = "background-color: transparent; font-size: 25px;border: none;"> Logs </button>
+        <button style = "background-color: transparent; font-size: 25px;border: none; text-decoration:underline;"> Logs </button>
     </a>
 </div>
 
@@ -122,7 +131,14 @@ session_start();?>
                 // Connect MySQL Database to display
                 // No Search query: Display all
 
-               
+                if(isset($_GET['notify'])){
+                    // Note: using the SELECT query style `table` #Order by Shelf is used in downloading the data
+                    $query = "SELECT * FROM `inventory` WHERE `shelf` = '$shelf' AND `division` = 'ITM' AND (CAST(`quantity` AS INTEGER) < CAST(`minimum` AS INTEGER)) ORDER BY `shelf`,`level`,`zone`,`depth` ";
+                }
+                
+                else{
+
+                
                 if(!isset($_GET['search'])){
                     // Note: using the SELECT query style `table` #Order by Shelf is used in downloading the data
                     $query = "SELECT * FROM `inventory` WHERE `shelf` = '$shelf' AND `division` = 'ITM' ORDER BY `shelf`,`level`,`zone`,`depth` ";
@@ -133,7 +149,7 @@ session_start();?>
                     $val = $_GET['search'];
                     $query = "SELECT * FROM inventory WHERE CONCAT(`part_number`,`serial_number`,`name`) LIKE '%$val%' AND `shelf` = '$shelf' AND `division` = 'ITM' ORDER BY `shelf`,`level`,`zone`,`depth`";
                 }
-                
+                }
                 $_SESSION["sql"] = "$query";
 
                 // hold the database
@@ -206,7 +222,7 @@ session_start();?>
                     else{
                         ?>
                         <tr>
-                            <td colspan="13">No Record Found</td>
+                            <td colspan="14">No Record Found</td>
                         </tr>
                         <?php
                     }
