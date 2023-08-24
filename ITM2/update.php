@@ -125,7 +125,7 @@ else{
                    echo "<td>";?>
                     <input type="button" name="<?php echo $row["Item_ID"]; ?>" id="<?php echo $row["Item_ID"]; ?>" class="btn btn-primary btn-block" value = "Edit" onclick="edit1(this.id)">
                     <input type="button" name="<?php echo $row["Item_ID"];?>" id="update<?php echo $row["Item_ID"]; ?>" value = "Update" class="btn btn-primary btn-block" onclick="update1(this.name)" style = "display:none" ><?php echo "</td>"; 
-                   echo "<td>";?> <input type="button" name="<?php echo $row["Item_ID"]; ?>" id="<?php echo $row["Item_ID"]; ?>" class="btn btn-danger btn_delete" value = "Delete" onclick="delete1(this.id)"><?php echo "</td>"; 
+                   echo "<td>";?> <input type="button" name="<?php echo $row["Item_Name"]; ?>" id="<?php echo $row["Item_ID"]; ?>" class="btn btn-danger btn_delete" value = "Delete" onclick="delete1(this.id,this.name)"><?php echo "</td>"; 
                    echo "</tr>"; 
           }
      }
@@ -162,6 +162,10 @@ if ($Action == "Update")
 
      mysqli_query($connect, $query);
 
+     $date = date('Y-m-d h:i a', time());
+     $log_date = date('Y-m-d h:i:s a', time());
+     $query = "INSERT INTO `ITM_Logs`(`date`, `action`) VALUES ('$log_date','Updated ($id , $Name)')";
+     $result = mysqli_query($connect,$query);
 }
 
 if ($Action == "Delete")
@@ -169,8 +173,14 @@ if ($Action == "Delete")
      $connect = mysqli_connect("localhost", "root", "", "inv");
 	
      $id = $_POST["id"];
+     $name = $_POST["name"];
      $query = "DELETE FROM `ITM_Inventory` WHERE `Item_ID` = '$id'";
      mysqli_query($connect, $query);
+
+     $date = date('Y-m-d h:i a', time());
+     $log_date = date('Y-m-d h:i:s a', time());
+     $query = "INSERT INTO `ITM_Logs`(`date`, `action`) VALUES ('$log_date','Delete ($id , $name)')";
+     $result = mysqli_query($connect,$query);
 }
 
 

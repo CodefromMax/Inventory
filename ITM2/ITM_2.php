@@ -16,25 +16,24 @@ session_start(); ?>
 <!-- Search bar -->
 <!-- update.php?search=<?php echo $_GET['search']; ?>&Action=disp -->
 <form action="" method="GET">
-    <div id = "searchbar" class="input-group mb-3" style="width: 95%;padding: 50px;">
+    <div id = "searchbar" class="input-group mb-3" style="width: 95%;padding: 50px;height:30px;">
         <input type="text" name="search" value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control" placeholder="Search Inventory" >
         <button type="submit" class="btn btn-primary btn-block" id = "btn_search" >Search</button>
         <!-- Note: No requirement (required) for filling in the bar: easy to get all item. -->
     </div>
 </form>
-<div id = "notify" class="input-group mb-3" style = "text-align:center">
-    <form action="" method="GET" style = "text-align:center">
-        <input type="hidden" name="notify" value="True" class="form-control" style = "text-align:center" >
-        <button type="submit" class="btn btn-primary btn-block" >Check Below Minimum Items</button>
-    </form>
-</div>
 
 <div id = "logs" style="padding-left: 50px;" >
     <a href = "log_page.php">
         <button style = "background-color: transparent; font-size: 25px;border: none; text-decoration:underline"> Logs </button>
     </a>
 </div>
-
+<div id="notify" style="display: flex; justify-content: center; align-items: center; height: 10vh;">
+    <form action="" method="GET" style="text-align: center;">
+        <input type="hidden" name="notify" value="True">
+        <button type="submit" class="btn btn-primary">Check Below Minimum Items</button>
+    </form>
+</div>
 
 <?php
 $_SESSION["search"] = $_GET['search']; 
@@ -273,11 +272,11 @@ $(document).on('click', '#btn_add', function(){
             disp_data();
         }
 
-        function delete1(id){
+        function delete1(id, name){
             xmlhttp = new XMLHttpRequest();
             xmlhttp.open("POST", "update.php", false);
             xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
-            variable = "id="+id+"&Action=Delete";
+            variable = "id="+id+"&name="+name+"&Action=Delete";
             xmlhttp.send(variable);
             disp_data();
         }
