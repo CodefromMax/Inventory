@@ -67,9 +67,9 @@ margin-right:2px;
   border-radius: 0;
 }
 
-#searchbar{
+/* #searchbar{
   margin-bottom:2px;
-} 
+}  */
 
 /* Navigation bar style */
 #dynamic_island {
@@ -132,10 +132,10 @@ background-color: #04AA6D;
 color: white;
 }
 
-html {
+/* html {
   scroll-behavior: smooth;   
   scroll-padding-top: 400px;
-}
+} */
 
 .sticky {
   

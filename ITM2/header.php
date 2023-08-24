@@ -9,7 +9,7 @@
         <!-- <link rel='stylesheet' type='text/css' href='style.css'/> -->
         <link type="text/css" rel="stylesheet" href="style.css" media = "screen"/>
         <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-        <script src="sticky_bar.js"></script>
+    </script>
     </head>  
     <body>
         <a href= "ITM_2.php">

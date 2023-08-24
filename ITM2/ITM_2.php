@@ -22,8 +22,23 @@ session_start(); ?>
         <!-- Note: No requirement (required) for filling in the bar: easy to get all item. -->
     </div>
 </form>
+<div id = "notify" class="input-group mb-3" style = "text-align:center">
+    <form action="" method="GET" style = "text-align:center">
+        <input type="hidden" name="notify" value="True" class="form-control" style = "text-align:center" >
+        <button type="submit" class="btn btn-primary btn-block" >Check Below Minimum Items</button>
+    </form>
+</div>
+
+<div id = "logs" style="padding-left: 50px;" >
+    <a href = "log_page.php">
+        <button style = "background-color: transparent; font-size: 25px;border: none; text-decoration:underline"> Logs </button>
+    </a>
+</div>
+
+
 <?php
-$_SESSION["search"] = $_GET['search']; ?>
+$_SESSION["search"] = $_GET['search']; 
+$_SESSION["notify"] = $_GET['notify']; ?>
 
         <div id = "export">
             <form method="post" action="ITM_export.php" style = "text-align:center">  
@@ -254,9 +269,8 @@ $(document).on('click', '#btn_add', function(){
             xmlhttp.open("POST", "update.php", false);
             xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
             variable = "id="+id+"&Name="+Name+"&Supplier="+Supplier+"&Est_Quantity="+Est_Quantity+"&Exact_Quantity="+Exact_Quantity+"&Minimum="+Minimum+"&Boxes="+Boxes+"&Owner_Name="+Owner_Name+"&Status="+Status+"&Room="+Room+"&Section="+Section+"&Shelf="+Shelf+"&Level="+Level+"&Note="+Note+"&Action=Update";
-            
             xmlhttp.send(variable);
-
+            disp_data();
         }
 
         function delete1(id){
