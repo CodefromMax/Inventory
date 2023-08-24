@@ -1,17 +1,29 @@
 <?php  
- 
- $Action = $_POST["Action"];
+date_default_timezone_set('America/Toronto'); 
+session_start(); 
+$Action = $_POST["Action"];
+// $Search = $_POST["search"];
+// $Search_Action = $_POST['Search_Action'];
+// echo $_SESSION["search"];
 
- if ($Action == "disp"){
 
-     $connect = mysqli_connect("localhost", "root", "", "inv");  
-     $output = '';  
-     $sql = "SELECT * FROM ITM_inventory ORDER BY Item_ID ASC";  
-     $result = mysqli_query($connect, $sql);  
+if($_SESSION["search"] != ""){
+     // Note: using the SELECT query style `table` #Order by Shelf is used in downloading the data
+     $val = $_SESSION["search"];
+     $sql = "SELECT * FROM `ITM_Inventory` WHERE CONCAT(`Item_Name`,`Supplier`,`Status`) LIKE '%$val%' ORDER BY `Item_ID` DESC ";
      
-     $rows = mysqli_num_rows($result);
-     $output .= '  
-           <table class="table-hover table-bordered table-striped" style="width:95%;" align = "center" >  
+}
+
+else{
+     $sql = "SELECT * FROM `ITM_Inventory` ORDER BY Item_ID DESC";
+ }
+
+
+ if ($Action == "disp" || isset($_GET['search'])){
+     // echo $_GET['search'];
+     ?>
+<!--      
+<table class="table-hover table-bordered table-striped" style="width:95%;" align = "center" >  
            <tbody style="font-size: 21px;" align = "center">
            <tr>  
                     <th style = "text-align: center">Id</th>  
@@ -30,15 +42,14 @@
                     <th style = "text-align: center">Note</th>
                     <th style = "text-align: center">Edit</th>
                     <th style = "text-align: center">Delete</th>
-                </tr>';  
-     echo $output;
-?>
+                </tr>
      <tr>  
-     <td></td>  
+               <td id="Item_ID">Auto</td>
                <td id="Item_Name" contenteditable></td>
                <td id="Supplier" contenteditable></td>
                <td id="Est_Quantity" contenteditable></td> 
-               <td id="Exact_Quantity" contenteditable></td> 
+               <td id="Exact_Quantity" contenteditable></td>
+               <td id="Minimum" contenteditable></td>  
                <td id="Boxes" contenteditable></td> 
                <td id="Owner_Name" contenteditable></td> 
                <td id="Status" contenteditable></td> 
@@ -48,8 +59,84 @@
                <td id="Level" contenteditable></td> 
                <td id="Note" contenteditable></td> 
           <td><button type="button" name="btn_add" id="btn_add" class="btn btn-xs btn-success">+</button></td>  
-     </tr>  
+     </tr> 
+ </table>
+ <br>
+     <br> -->
+     <br>
+     <br>
+    
      <?php
+
+
+     $connect = mysqli_connect("localhost", "root", "", "inv");  
+     $output = '';  
+
+     //  $_SESSION["sql"] = "$query";
+     
+
+
+     // $sql = "SELECT * FROM ITM_inventory ORDER BY Item_ID DESC";  
+     $result = mysqli_query($connect, $sql);  
+     
+     $rows = mysqli_num_rows($result);
+     $output .= '  
+    
+     <table class="table-sortable table-hover table-bordered table-striped" style="width:95%;" align = "center" >  
+           <tbody style="font-size: 21px;" align = "center">
+           <tr>  
+                    <th style = "text-align: center">Id</th>  
+                    <th style = "text-align: center">Name</th>  
+                    <th style = "text-align: center">Supplier</th>  
+                    <th style = "text-align: center">Est. Quantity</th>  
+                    <th style = "text-align: center">Exact Quantity</th>  
+                    <th style = "text-align: center">Minimum</th>  
+                    <th style = "text-align: center">No. Boxes</th>  
+                    <th style = "text-align: center">Owner</th>  
+                    <th style = "text-align: center">Status</th>  
+                    <th style = "text-align: center">Room</th>  
+                    <th style = "text-align: center">Section</th>  
+                    <th style = "text-align: center">Shelf</th>  
+                    <th style = "text-align: center">Level</th>  
+                    <th style = "text-align: center">Note</th>
+                    <th style = "text-align: center">Edit</th>
+                    <th style = "text-align: center">Delete</th>
+                </tr>';
+
+     echo $output;
+
+     ?>
+
+<tr> <td colspan="16">---------------- &nbsp Add New Item &nbsp --------------------</td></tr>
+
+<tr>  
+               <td id="Item_ID">Auto</td>
+               <td id="Item_Name" contenteditable></td>
+               <td id="Supplier" contenteditable></td>
+               <td id="Est_Quantity" contenteditable></td> 
+               <td id="Exact_Quantity" contenteditable></td>
+               <td id="Minimum" contenteditable></td>  
+               <td id="Boxes" contenteditable></td> 
+               <td id="Owner_Name" contenteditable></td> 
+               <td id="Status" contenteditable></td> 
+               <td id="Room" contenteditable></td> 
+               <td id="Section" contenteditable></td> 
+               <td id="Shelf" contenteditable></td> 
+               <td id="Level" contenteditable></td> 
+               <td id="Note" contenteditable></td> 
+          <td colspan = "2"><button type="button" name="btn_add" id="btn_add" class="btn btn-success">Add</button></td>  
+          
+     </tr>
+     <!-- <tr><td colspan="16"> &nbsp</td></tr> -->
+     <tr> <td colspan="16">---------------- &nbsp Inventory Starts Here &nbsp --------------------</td></tr>
+     <tr></tr>
+     <tr></tr>
+
+
+
+     <?php
+
+
      if($rows > 0)  
      {  
           

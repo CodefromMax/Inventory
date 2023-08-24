@@ -1,4 +1,6 @@
 <?php include("header.php"); ?>
+<?php date_default_timezone_set('America/Toronto'); 
+session_start(); ?>
 <!-- <html>  
     <head>   -->
         <!-- <title>Webslesson Demo - Live Table Add Edit Delete using Ajax Jquery in PHP Mysql</title>   -->
@@ -11,10 +13,99 @@
         <input type = "text" id = "txtnameis" placeholder="Item Name">
 </form>-->
 
-        
+<!-- Search bar -->
+<!-- update.php?search=<?php echo $_GET['search']; ?>&Action=disp -->
+<form action="" method="GET">
+    <div id = "searchbar" class="input-group mb-3" style="width: 95%;padding: 50px;">
+        <input type="text" name="search" value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control" placeholder="Search Inventory" >
+        <button type="submit" class="btn btn-primary btn-block" id = "btn_search" >Search</button>
+        <!-- Note: No requirement (required) for filling in the bar: easy to get all item. -->
+    </div>
+</form>
+<?php
+$_SESSION["search"] = $_GET['search']; ?>
+
+        <div id = "export">
+            <form method="post" action="ITM_export.php" style = "text-align:center">  
+                <input type="submit" name="export" value="Export Inventory Database" class="btn btn-success" />  
+            </form>
+        </div>
+        <script src="tablesort.js"></script>
         <div id = "disp_data"></div>
 
         <script>
+// function search(query)
+// {  
+//                 var xmlhttp = new XMLHttpRequest();
+//                 xmlhttp.open("POST", "update.php",false);
+//                 xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//                 xmlhttp.send("search="+query+"&Search_Action=disp");
+//                 document.getElementById("disp_data").innerHTML=xmlhttp.responseText;
+//             };
+$(document).on('click', '#btn_add', function(){  
+        var Item_Name = $('#Item_Name').text();  
+        var Supplier = $('#Supplier').text();
+        var Est_Quantity = $('#Est_Quantity').text(); 
+        var Exact_Quantity = $('#Exact_Quantity').text(); 
+        var Minimum = $('#Minimum').text();
+        var Boxes = $('#Boxes').text(); 
+        var Owner_Name = $('#Owner_Name').text(); 
+        var Status = $('#Status').text(); 
+        var Room = $('#Room').text(); 
+        var Section = $('#Section').text(); 
+        var Shelf = $('#Shelf').text(); 
+        var Level = $('#Level').text(); 
+        var Note = $('#Note').text(); 
+
+        check_list = [Item_Name,Status,Room,Section,Shelf,Level];
+        
+        check_list_string = ["Item Name","Status","Room","Section","Shelf","Level"];
+        for (var i = 0; i < check_list.length; i++) {
+            var field = check_list[i];
+
+            if (isEmpty(field)) {
+                alert(check_list_string[i] + " is empty.");
+                break; 
+            }
+        }
+        
+        if (isEmpty(Est_Quantity) && isEmpty(Exact_Quantity)){
+            alert("Please enter the qunatity in Estimate or in Exact Quantity.");
+        }
+        function isEmpty(value) {
+            return value.trim() === '';
+        }
+
+        $.ajax({  
+            url:"insert.php",  
+            method:"POST",  
+            data:
+            {
+            Item_Name: Item_Name,
+            Supplier: Supplier,
+            Est_Quantity: Est_Quantity,
+            Exact_Quantity: Exact_Quantity,
+            Minimum: Minimum,
+            Boxes: Boxes,
+            Owner_Name: Owner_Name,
+            Status: Status,
+            Room: Room,
+            Section: Section,
+            Shelf: Shelf,
+            Level: Level,
+            Note: Note,
+            },  
+            dataType:"text",  
+            success:function(data)  
+            {  
+                alert(data);  
+                disp_data();  
+            }  
+        })  
+    }); 
+
+
+
             function disp_data()
             {
                 var xmlhttp = new XMLHttpRequest();

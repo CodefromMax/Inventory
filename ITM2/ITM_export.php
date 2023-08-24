@@ -1,9 +1,24 @@
 <?php  
+session_start(); 
+
+
+if($_SESSION["search"] != ""){
+    // Note: using the SELECT query style `table` #Order by Shelf is used in downloading the data
+    $val = $_SESSION["search"];
+    $sql = "SELECT * FROM `ITM_Inventory` WHERE CONCAT(`Item_Name`,`Supplier`,`Status`) LIKE '%$val%' ORDER BY `Item_ID` ASC ";
+    
+}
+
+else{
+    $sql = "SELECT * FROM `ITM_Inventory` ORDER BY Item_ID DESC";
+}
+
+
 
 //Connect database
 $connect = mysqli_connect("localhost", "root", "", "inv");  
  $output = '';  
- $sql = "SELECT * FROM ITM_inventory ORDER BY Item_ID ASC";  
+//  $sql = "SELECT * FROM ITM_inventory ORDER BY Item_ID ASC";  
 
 //Session variable is a temporary variable used to store PHP variable across different PHP pages
 //It will disappear upon closing the page
@@ -17,7 +32,7 @@ $connect = mysqli_connect("localhost", "root", "", "inv");
 header('Content-Type: text/csv; charset=utf-8');  
 header('Content-Disposition: attachment; filename=inventory_database.csv');  
 $output = fopen("php://output", "w");  
-fputcsv($output, array('Item_ID', 'Item_Name', 'Supplier', 'Est_Quantity','Exact_Quantity', 'Boxes', 'Owner_Name', 'Status',
+fputcsv($output, array('Item_ID', 'Item_Name', 'Supplier', 'Est_Quantity','Exact_Quantity', 'Minimum', 'Boxes', 'Owner_Name', 'Status',
 'Room', 'Section', 'Shelf', 'Level', 'Note'));  
 $result = mysqli_query($connect,$sql);
 
