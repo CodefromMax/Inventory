@@ -13,7 +13,10 @@ else{
     $sql = "SELECT * FROM `ITM_Inventory` ORDER BY Item_ID DESC";
 }
 
-
+if($_SESSION["notify"] != ""){
+    // get all the items that (Est_Quantity < Minimum) cast as INTEGER is a function to change string to integer
+    $sql = "SELECT * FROM `ITM_Inventory` WHERE (CAST(`Est_Quantity` AS INTEGER) < CAST(`Minimum` AS INTEGER)) ORDER BY `Item_ID` ASC ";
+}
 
 //Connect database
 $connect = mysqli_connect("localhost", "root", "", "inv");  
